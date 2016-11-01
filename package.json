@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/rahulteja16/uploadjs/issues"
   },
-  "homepage": "https://github.com/rahulteja16/uploadjs#readme"
+  "homepage": "https://github.com/rahulteja16/uploadjs#readme",
+  "dependencies": {
+    "file-system": "^2.2.1"
+  }
 }
