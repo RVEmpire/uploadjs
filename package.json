@@ -1,0 +1,19 @@
+{
+  "name": "uploadjs",
+  "version": "1.0.0",
+  "description": "Upload csv file using node",
+  "main": "upload.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahulteja16/uploadjs.git"
+  },
+  "author": "Rahul Teja",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rahulteja16/uploadjs/issues"
+  },
+  "homepage": "https://github.com/rahulteja16/uploadjs#readme"
+}
