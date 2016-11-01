@@ -1,5 +1,5 @@
 var uploadjs = require('./upload.js');
 
 
-var filePath = './test.txt';
-uploadjs.csvToJson(filePath);
+var filePath = './csvdata.csv';
+uploadjs.csvToJson(filePath,',');
