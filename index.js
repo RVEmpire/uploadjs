@@ -2,4 +2,24 @@ var uploadjs = require('./upload.js');
 
 
 var filePath = './csvdata.csv';
-uploadjs.csvToJson(filePath,',');
+var options = {
+  'delimiter':',',
+  'headers':false,
+  'headersType':{
+    'id':{
+      'type': 'string',
+      'required': 'true'
+    },
+    'first_name':{
+      'type':'string',
+      'required':'true'
+    },
+    'last_name':{
+      'type':'string',
+      'required':'false'
+    }
+  },
+  'limit':5,
+  'skipEmpty':true
+};
+uploadjs.csvToJson(filePath,options);
