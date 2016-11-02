@@ -1,9 +1,10 @@
 var fs = require('fs');
 
   exports.csvToJson = function(path,options){
-    //initilizing limit and delimiter options
+    //initilizing limit,delimiter,header options
     var limit = options.limit;
     var delimiter = options.delimiter || ',';
+    var headValue = options.header || true;
     var readbleStream = fs.createReadStream(path);
     var data = '';
     var finalData=[];
@@ -27,9 +28,21 @@ var fs = require('fs');
         var result = {};
         //split the data afte , and return a array.
         var bodyData = rawData.split(delimiter);
-         for(var i=0;i < header.length;i++){
-           //maping header with body data.
-           result[header[i]]=bodyData[i];
+        // check if header value is true, if true then set limit to haeder length.
+        if(headValue){
+          limit = header.length;
+        } else {
+          //if header value is false, set limit to bodyData length
+          limit = bodyData.length;
+        }
+         for(var i=0;i < limit;i++){
+          if(headValue){
+            //maping header with body data with header option is true.
+            result[header[i]]=bodyData[i];
+          } else {
+            //maping body data if header option is false.
+              result[i] = bodyData[i];
+          }
          }
          //pushing result object into array.
          finalData.push(result);
@@ -43,8 +56,15 @@ var fs = require('fs');
         limit = rawData.length-1;
       }
       for(var i =1 ;i<limit;i++){
+        //check headvale from options true||false
+        if(headValue)
+        {
         // extract headers from entire data.
         var header = getHeaders(data);
+        } else {
+          //if header is false send balnk array.
+        header = [];
+        }
         //create a object maping heades to data
         var formatedData= combineData(header,rawData[i]);
       };
