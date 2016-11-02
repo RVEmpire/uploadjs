@@ -1,7 +1,9 @@
 var fs = require('fs');
 
-  exports.csvToJson = function(path,delimiter){
-    var delimiter = delimiter;
+  exports.csvToJson = function(path,options){
+    //initilizing limit and delimiter options
+    var limit = options.limit;
+    var delimiter = options.delimiter || ',';
     var readbleStream = fs.createReadStream(path);
     var data = '';
     var finalData=[];
@@ -32,8 +34,15 @@ var fs = require('fs');
          //pushing result object into array.
          finalData.push(result);
       };
+
       var rawData = data.split('\n');
-      for(var i =1 ;i<rawData.length-1;i++){
+      //checking for limit options.
+      if(limit){
+        limit = limit+1;
+      } else {
+        limit = rawData.length-1;
+      }
+      for(var i =1 ;i<limit;i++){
         // extract headers from entire data.
         var header = getHeaders(data);
         //create a object maping heades to data
