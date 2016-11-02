@@ -1,2 +1,1 @@
-Hi I am Rahul Teja.
-I work as Software Developer.
+Rahul,Software Developer,16-04-1994.
