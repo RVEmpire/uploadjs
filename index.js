@@ -4,7 +4,7 @@ var uploadjs = require('./upload.js');
 var filePath = './csvdata.csv';
 var options = {
   'delimiter':',',
-  'headers':false,
+  'header':true,
   'headersType':{
     'id':{
       'type': 'string',
