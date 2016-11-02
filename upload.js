@@ -33,14 +33,12 @@ var fs = require('fs');
          finalData.push(result);
       };
       var rawData = data.split('\n');
-      for(var i =1 ;i<rawData.length;i++){
+      for(var i =1 ;i<rawData.length-1;i++){
         // extract headers from entire data.
         var header = getHeaders(data);
         //create a object maping heades to data
         var formatedData= combineData(header,rawData[i]);
       };
-      //remove the last object which is undefined
-      finalData.pop();
       console.log(finalData);
     });
   };
