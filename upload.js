@@ -35,10 +35,31 @@ internals.combineData = function(header,rawData,delimiter,headValue,finalData){
        finalData.push(result);
 };
 
+internals.setLimit = function(limit,rawData){
+    if(limit){
+      limit = limit+1;
+    } else {
+      limit = rawData.length-1;
+    }
+    return limit;
+};
+
+internals.skipRows =function(skipEmpty,data,rawData){
+  var rawData =[];
+  if(skipEmpty){
+    data = data.replace(/\s+,/, "");
+    rawData = data.split('\n');
+  } else {
+    rawData = data.split('\n');
+  }
+  return rawData;
+}
+
 internals.parseData = function(path,options){
     var limit = options.limit;
     var delimiter = options.delimiter || ',';
     var headValue = options.header || true;
+    var skipEmpty = options.skipEmpty;
     var readbleStream = fs.createReadStream(path);
     var data = '';
     var finalData=[];
@@ -48,15 +69,12 @@ internals.parseData = function(path,options){
       data += chunk;
     });
     readbleStream.on('end',function(){
-        var rawData = data.split('\n');
+        //skip blanck rows
+        var rawData = internals.skipRows(skipEmpty,data,rawData);
+        // check data limit
+        var setLimit = internals.setLimit(limit,rawData);
 
-        if(limit){
-          limit = limit+1;
-        } else {
-          limit = rawData.length-1;
-        }
-
-        for(var i =1 ;i<limit;i++){
+        for(var i =1 ;i<setLimit;i++){
           //check headvale from options true||false
           if(headValue)
           {
