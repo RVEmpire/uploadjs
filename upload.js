@@ -53,13 +53,14 @@ internals.skipRows =function(skipEmpty,data,rawData){
     rawData = data.split('\n');
   }
   return rawData;
-}
+};
 
-internals.parseData = function(path,options){
+internals.csvToJson = function(path,options){
     var limit = options.limit;
     var delimiter = options.delimiter || ',';
     var headValue = options.header || true;
     var skipEmpty = options.skipEmpty;
+    var headersType = options.headersType;
     var readbleStream = fs.createReadStream(path);
     var data = '';
     var finalData=[];
@@ -87,10 +88,13 @@ internals.parseData = function(path,options){
           //create a object maping heades to data
           var formatedData= internals.combineData(header,rawData[i],delimiter,headValue,finalData);
         };
-        console.log(finalData);
+
+        //return finalData
+        return finalData;
+        //console.log(finalData);
     });
 };
 
-exports. csvToJson = function(path,options){
-      internals.parseData(path,options);
-};
+module.exports = internals;
+
+
